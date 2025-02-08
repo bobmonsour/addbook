@@ -31,27 +31,55 @@ async function promptUser() {
 		},
 		{
 			type: "input",
-			name: "rating",
-			message: "Rating (1-5 or leave blank):",
+			name: "yearRead",
+			message:
+				"Year Read (1 for today's date, 2 for 'currently', 3 for 'undated', or yyyy-mm-dd):",
+			default: "1",
 			validate: (input) => {
-				if (input === "") return true;
-				const rating = Number(input);
+				const isValid =
+					input === "1" ||
+					input === "2" ||
+					input === "3" ||
+					/^\d{4}-\d{2}-\d{2}$/.test(input);
 				return (
-					(rating >= 1 && rating <= 5) ||
-					"Rating must be a number between 1 and 5."
+					isValid ||
+					"Enter '1' for today's date, '2' for 'currently', '3' for 'undated', or a date in the format yyyy-mm-dd."
 				);
 			},
 		},
-		{
-			type: "input",
-			name: "yearRead",
-			message: "Year Read (yyyy-mm-dd):",
-			default: today,
-			validate: (input) => {
-				const isValid = /^\d{4}-\d{2}-\d{2}$/.test(input);
-				return isValid || "Date must be in the format yyyy-mm-dd.";
+	]);
+
+	if (answers.yearRead === "1") {
+		answers.yearRead = today;
+	} else if (answers.yearRead === "2") {
+		answers.yearRead = "currently";
+		answers.rating = "";
+	} else if (answers.yearRead === "3") {
+		answers.yearRead = "undated";
+	} else {
+		// If a specific date is entered, do nothing here
+	}
+
+	if (answers.yearRead !== "currently") {
+		const ratingAnswer = await inquirer.prompt([
+			{
+				type: "input",
+				name: "rating",
+				message: "Rating (1-5 or leave blank):",
+				validate: (input) => {
+					if (input === "") return true;
+					const rating = Number(input);
+					return (
+						(rating >= 1 && rating <= 5) ||
+						"Rating must be a number between 1 and 5."
+					);
+				},
 			},
-		},
+		]);
+		answers.rating = ratingAnswer.rating;
+	}
+
+	const localCoverAnswer = await inquirer.prompt([
 		{
 			type: "confirm",
 			name: "localCover",
@@ -59,6 +87,7 @@ async function promptUser() {
 			default: false,
 		},
 	]);
+	answers.localCover = localCoverAnswer.localCover;
 
 	return answers;
 }
