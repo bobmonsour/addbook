@@ -3,6 +3,7 @@
 import fs from "fs";
 import inquirer from "inquirer";
 import { format } from "date-fns";
+import path from "path";
 
 const today = format(new Date(), "yyyy-MM-dd");
 
@@ -158,14 +159,35 @@ async function confirmOrEditJson(jsonContent, answers) {
 }
 
 async function main() {
+	const fileChoice = await inquirer.prompt([
+		{
+			type: "list",
+			name: "filePath",
+			message: "Which books.json file should be used?",
+			choices: [
+				{ name: "books.json in the current directory", value: "./books.json" },
+				{
+					name: "Real data in the bobmonsour.com directory",
+					value:
+						"/Users/Bob/Dropbox/Docs/Sites/bobmonsour.com/src/_data/books.json",
+				},
+			],
+		},
+	]);
+
+	const filePath = fileChoice.filePath;
+
+	if (filePath === "./books.json" && !fs.existsSync(filePath)) {
+		fs.writeFileSync(filePath, "[]", "utf8");
+		console.log(`Created ${filePath} as an empty JSON array.`);
+	}
+
 	let answers = await promptUser();
 	let jsonContent = generateJsonContent(answers);
 
 	answers = await confirmOrEditJson(jsonContent, answers);
 	jsonContent = generateJsonContent(answers);
 
-	const filePath =
-		"/Users/Bob/Dropbox/Docs/Sites/bobmonsour.com/src/_data/books.json";
 	let booksArray = [];
 
 	if (fs.existsSync(filePath)) {
