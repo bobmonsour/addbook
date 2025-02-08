@@ -1,0 +1,22 @@
+{
+	"name": "addbook",
+	"version": "1.0.0",
+	"main": "addbook.js",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": {
+		"name": "Bob Monsour",
+		"email": "bob.monsour@gmail.com",
+		"url": "https://bobmonsour.com"
+	},
+	"license": "ISC",
+	"description": "Add a book item to the book database for the 'Books' page on  bobmonsour.com",
+	"dependencies": {
+		"date-fns": "^4.1.0",
+		"inquirer": "^12.4.1",
+		"slugify": "^1.6.6"
+	}
+}
