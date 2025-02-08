@@ -12,11 +12,13 @@ async function promptUser() {
 			type: "input",
 			name: "title",
 			message: "Title:",
+			validate: (input) => input.trim() !== "" || "Title is required.",
 		},
 		{
 			type: "input",
 			name: "author",
 			message: "Author:",
+			validate: (input) => input.trim() !== "" || "Author is required.",
 		},
 		{
 			type: "input",
