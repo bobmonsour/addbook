@@ -91,10 +91,16 @@ async function promptUser(defaults = {}) {
 
 	const localCoverAnswer = await inquirer.prompt([
 		{
-			type: "confirm",
+			type: "input",
 			name: "localCover",
 			message: "Local cover image? (y/n):",
-			default: defaults.localCover || false,
+			default: defaults.localCover ? "y" : "n",
+			validate: (input) => {
+				const isValid =
+					input.toLowerCase() === "y" || input.toLowerCase() === "n";
+				return isValid || "Please enter 'y' or 'n'.";
+			},
+			filter: (input) => input.toLowerCase() === "y",
 		},
 	]);
 	answers.localCover = localCoverAnswer.localCover;
@@ -127,10 +133,16 @@ async function confirmOrEditJson(jsonContent, answers) {
 
 		const response = await inquirer.prompt([
 			{
-				type: "confirm",
+				type: "input",
 				name: "accept",
-				message: "Do you accept the generated JSON content?",
-				default: true,
+				message: "Accept the book data? (y/n):",
+				default: "y",
+				validate: (input) => {
+					const isValid =
+						input.toLowerCase() === "y" || input.toLowerCase() === "n";
+					return isValid || "Please enter 'y' or 'n'.";
+				},
+				filter: (input) => input.toLowerCase() === "y",
 			},
 		]);
 
