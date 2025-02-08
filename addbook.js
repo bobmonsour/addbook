@@ -25,9 +25,9 @@ async function promptUser(defaults = {}) {
 		},
 		{
 			type: "input",
-			name: "isbn",
+			name: "ISBN",
 			message: "ISBN (13 characters):",
-			default: defaults.isbn || "",
+			default: defaults.ISBN || "",
 			validate: (input) => {
 				const isValid = /^\d{13}$/.test(input);
 				return isValid || "ISBN must be a 13-character string of numbers.";
@@ -113,7 +113,7 @@ function generateJsonContent(answers) {
 	const jsonContent = {
 		title: answers.title,
 		author: answers.author,
-		isbn: answers.isbn,
+		ISBN: answers.ISBN,
 		rating: answers.rating || "",
 		yearRead: answers.yearRead,
 	};
