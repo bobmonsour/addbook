@@ -30,22 +30,15 @@ async function promptUser() {
 			},
 		},
 		{
-			type: "input",
+			type: "list",
 			name: "yearRead",
-			message:
-				"Year Read (1 for today's date, 2 for 'currently', 3 for 'undated', or yyyy-mm-dd):",
-			default: "1",
-			validate: (input) => {
-				const isValid =
-					input === "1" ||
-					input === "2" ||
-					input === "3" ||
-					/^\d{4}-\d{2}-\d{2}$/.test(input);
-				return (
-					isValid ||
-					"Enter '1' for today's date, '2' for 'currently', '3' for 'undated', or a date in the format yyyy-mm-dd."
-				);
-			},
+			message: "Year Read:",
+			choices: [
+				{ name: `1) today's date (${today})`, value: "1" },
+				{ name: "2) 'currently reading'", value: "2" },
+				{ name: "3) 'undated'", value: "3" },
+				{ name: "4) custom as yyyy-mm-dd", value: "4" },
+			],
 		},
 	]);
 
@@ -56,8 +49,19 @@ async function promptUser() {
 		answers.rating = "";
 	} else if (answers.yearRead === "3") {
 		answers.yearRead = "undated";
-	} else {
-		// If a specific date is entered, do nothing here
+	} else if (answers.yearRead === "4") {
+		const customDateAnswer = await inquirer.prompt([
+			{
+				type: "input",
+				name: "customDate",
+				message: "Enter the date (yyyy-mm-dd):",
+				validate: (input) => {
+					const isValid = /^\d{4}-\d{2}-\d{2}$/.test(input);
+					return isValid || "Date must be in the format yyyy-mm-dd.";
+				},
+			},
+		]);
+		answers.yearRead = customDateAnswer.customDate;
 	}
 
 	if (answers.yearRead !== "currently") {
