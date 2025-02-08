@@ -5,7 +5,7 @@ import inquirer from "inquirer";
 import { format } from "date-fns";
 import path from "path";
 
-const today = format(new Date(), "yyyy-MM-dd");
+const today = format(new Date(), "yyyy/MM/dd");
 
 async function promptUser(defaults = {}) {
 	const answers = await inquirer.prompt([
@@ -41,7 +41,7 @@ async function promptUser(defaults = {}) {
 				{ name: `1) today's date (${today})`, value: "1" },
 				{ name: "2) 'currently reading'", value: "2" },
 				{ name: "3) 'undated'", value: "3" },
-				{ name: "4) custom as yyyy-mm-dd", value: "4" },
+				{ name: "4) custom as yyyy/mm/dd", value: "4" },
 			],
 			default: defaults.yearRead || "1",
 		},
@@ -59,11 +59,12 @@ async function promptUser(defaults = {}) {
 			{
 				type: "input",
 				name: "customDate",
-				message: "Enter the date (yyyy-mm-dd):",
+				message: "Enter the date (yyyy/mm/dd):",
 				default: defaults.yearRead || "",
 				validate: (input) => {
-					const isValid = /^\d{4}-\d{2}-\d{2}$/.test(input);
-					return isValid || "Date must be in the format yyyy-mm-dd.";
+					const isValid = /^\d{4}\/\d{2}\/\d{2}$/.test(input);
+					// const isValid = /^\d{4}-\d{2}-\d{2}$/.test(input);
+					return isValid || "Date must be in the format yyyy/mm/dd.";
 				},
 			},
 		]);

@@ -680,5 +680,12 @@
     "isbn": "8888888888888",
     "rating": "2",
     "yearRead": "2025-02-07"
+  },
+  {
+    "title": "A book test",
+    "author": "a test author",
+    "ISBN": "9999999999999",
+    "rating": "4",
+    "yearRead": "2023/01/03"
   }
 ]
