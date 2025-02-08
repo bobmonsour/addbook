@@ -6,24 +6,27 @@ import { format } from "date-fns";
 
 const today = format(new Date(), "yyyy-MM-dd");
 
-async function promptUser() {
+async function promptUser(defaults = {}) {
 	const answers = await inquirer.prompt([
 		{
 			type: "input",
 			name: "title",
 			message: "Title:",
+			default: defaults.title || "",
 			validate: (input) => input.trim() !== "" || "Title is required.",
 		},
 		{
 			type: "input",
 			name: "author",
 			message: "Author:",
+			default: defaults.author || "",
 			validate: (input) => input.trim() !== "" || "Author is required.",
 		},
 		{
 			type: "input",
 			name: "isbn",
 			message: "ISBN (13 characters):",
+			default: defaults.isbn || "",
 			validate: (input) => {
 				const isValid = /^\d{13}$/.test(input);
 				return isValid || "ISBN must be a 13-character string of numbers.";
@@ -39,6 +42,7 @@ async function promptUser() {
 				{ name: "3) 'undated'", value: "3" },
 				{ name: "4) custom as yyyy-mm-dd", value: "4" },
 			],
+			default: defaults.yearRead || "1",
 		},
 	]);
 
@@ -55,6 +59,7 @@ async function promptUser() {
 				type: "input",
 				name: "customDate",
 				message: "Enter the date (yyyy-mm-dd):",
+				default: defaults.yearRead || "",
 				validate: (input) => {
 					const isValid = /^\d{4}-\d{2}-\d{2}$/.test(input);
 					return isValid || "Date must be in the format yyyy-mm-dd.";
@@ -65,17 +70,14 @@ async function promptUser() {
 	}
 
 	if (answers.yearRead !== "currently") {
-		const ratingMessage =
-			answers.yearRead === "undated"
-				? "Rating (1-5):"
-				: "Rating (1-5 or leave blank):";
+		const ratingMessage = "Rating (1-5):";
 		const ratingAnswer = await inquirer.prompt([
 			{
 				type: "input",
 				name: "rating",
 				message: ratingMessage,
+				default: defaults.rating || "",
 				validate: (input) => {
-					if (input === "" && answers.yearRead !== "undated") return true;
 					const rating = Number(input);
 					return (
 						(rating >= 1 && rating <= 5) ||
@@ -92,7 +94,7 @@ async function promptUser() {
 			type: "confirm",
 			name: "localCover",
 			message: "Local cover image? (y/n):",
-			default: false,
+			default: defaults.localCover || false,
 		},
 	]);
 	answers.localCover = localCoverAnswer.localCover;
@@ -135,7 +137,7 @@ async function confirmOrEditJson(jsonContent, answers) {
 		accept = response.accept;
 
 		if (!accept) {
-			answers = await promptUser();
+			answers = await promptUser(answers);
 			jsonContent = generateJsonContent(answers);
 		}
 	}

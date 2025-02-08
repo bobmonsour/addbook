@@ -597,5 +597,42 @@
     "isbn": "1234567890123",
     "rating": "5",
     "yearRead": "2021-02-04"
+  },
+  {
+    "title": "title 1",
+    "author": "auth 1",
+    "isbn": "1234567890123",
+    "rating": "4",
+    "yearRead": "2025-01-01",
+    "localCover": true
+  },
+  {
+    "title": "title 34",
+    "author": "auth 45",
+    "isbn": "1234567890123",
+    "rating": "3",
+    "yearRead": "undated"
+  },
+  {
+    "title": "asfaksjhf",
+    "author": "adkjfhsdkgj",
+    "isbn": "1234567890123",
+    "rating": "",
+    "yearRead": "currently"
+  },
+  {
+    "title": "asfljksd",
+    "author": "fsdjgh",
+    "isbn": "2222222222222",
+    "rating": "2",
+    "yearRead": "2021-01-03",
+    "localCover": true
+  },
+  {
+    "title": "title 4",
+    "author": "auth 56",
+    "isbn": "2222222222222",
+    "rating": "3",
+    "yearRead": "2025-02-07"
   }
 ]
