@@ -65,13 +65,17 @@ async function promptUser() {
 	}
 
 	if (answers.yearRead !== "currently") {
+		const ratingMessage =
+			answers.yearRead === "undated"
+				? "Rating (1-5):"
+				: "Rating (1-5 or leave blank):";
 		const ratingAnswer = await inquirer.prompt([
 			{
 				type: "input",
 				name: "rating",
-				message: "Rating (1-5 or leave blank):",
+				message: ratingMessage,
 				validate: (input) => {
-					if (input === "") return true;
+					if (input === "" && answers.yearRead !== "undated") return true;
 					const rating = Number(input);
 					return (
 						(rating >= 1 && rating <= 5) ||
