@@ -164,7 +164,8 @@ async function main() {
 	answers = await confirmOrEditJson(jsonContent, answers);
 	jsonContent = generateJsonContent(answers);
 
-	const filePath = "./books.json";
+	const filePath =
+		"/Users/Bob/Dropbox/Docs/Sites/bobmonsour.com/src/_data/books.json";
 	let booksArray = [];
 
 	if (fs.existsSync(filePath)) {
