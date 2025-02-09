@@ -6,6 +6,10 @@ Generally, the script prompts for the title of the book, the author, the date th
 
 However, as I noted in my presentation to the Eleventy Meetup, there are some idiosychracies to the data, i.e., special cases to handle. For example, if I am currently reading the book, I need a way to indicate that to the script, in which case "currently" becomes the value for the yearRead element of the entry and the rating value is set to "". The script handles this for me. Another example is the use of a localCover image. I can choose that to be true or false, and if false, it is not included in the entry.
 
+The script also does some validation. For example it checks to ensure that the ISBN is a 13-digit number and it validates the date format.
+
+And like the mkbo script, it asks if I want to accept the entry or edit it. And I choose to edit it, it pre-fills the entry with the information that I previously entered.
+
 I've also set up the script to, upon execution, ask if I want it to operate on a books.json file in the local directory (for testing) or in the very specific directory where my "real" books.json file is located.
 
 And, just as I created a symlink to the script for the "kbo" script, I've set it up so that I can run it from any directory. For example, the directory /usr/bin/local is in my path, so I create a symlink to the script in that directory.

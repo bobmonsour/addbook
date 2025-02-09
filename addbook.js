@@ -136,7 +136,7 @@ async function confirmOrEditJson(jsonContent, answers) {
 			{
 				type: "input",
 				name: "accept",
-				message: "Accept the book data? (y/n):",
+				message: "Accept the book data? (y/n), 'n' allows editing:",
 				default: "y",
 				validate: (input) => {
 					const isValid =
