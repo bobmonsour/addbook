@@ -1,4 +1,4 @@
-# addbook
+# addbook - add an entry to the books.json file
 
 Similar to the [script that I created](https://github.com/bobmonsour/mkbo) for creating a new post on my personal website, I created this script for creating a new book in the books.json file that drives the [Books page](https://bobmonsour.com/books/) on the site.
 
