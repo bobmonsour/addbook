@@ -3,7 +3,6 @@
 import fs from "fs";
 import inquirer from "inquirer";
 import { format } from "date-fns";
-import path from "path";
 
 const today = format(new Date(), "yyyy/MM/dd");
 

@@ -1,40 +1,19 @@
-I often find myself making a copy of an existing entry on my website in order to start a new one. I've also begun to find this a bit annoying. I wanted a more direct, yet streamlined approach to starting a new entry.
+# addbook
 
-I was catalyzed by a video that I watched. The video was created by [DeepanNess](https://deepakness.com/) and here is his [blog post](https://deepakness.com/blog/create-posts-faster-11ty/) about it.
+Similar to the [script that I created](https://github.com/bobmonsour/mkbo) for creating a new post on my personal website, I created this script for creating a new book in the books.json file that drives the [Books page](https://bobmonsour.com/books/) on the site.
 
-So, I developed this node script to create a file for post, note, or til (today, I learned, linked, or loved) entry on [my personal website](https://bobmonsour.com).
+Generally, the script prompts for the title of the book, the author, the date that the book was read, and the rating that I gave to the book. It then creates a new entry in the books.json file with the information provided.
 
-It prompts me to enter a title, from which a filename is generated.
-It then prompts for a few 'always present' front matter elements,
-as well as some optional elements.
+However, as I noted in my presentation to the Eleventy Meetup, there are some idiosychracies to the data, i.e., special cases to handle. For example, if I am currently reading the book, I need a way to indicate that to the script, in which case "currently" becomes the value for the yearRead element of the entry and the rating value is set to "". The script handles this for me. Another example is the use of a localCover image. I can choose that to be true or false, and if false, it is not included in the entry.
 
-The file is created in the current directory.
+I've also set up the script to, upon execution, ask if I want it to operate on a books.json file in the local directory (for testing) or in the very specific directory where my "real" books.json file is located.
 
-I create a symlink to the script in a directory that is in my path, so that I can run it from any directory. For example, the directory /usr/bin/local is in my path, so I create a symlink to the script in that directory.
+And, just as I created a symlink to the script for the "kbo" script, I've set it up so that I can run it from any directory. For example, the directory /usr/bin/local is in my path, so I create a symlink to the script in that directory.
 
 On macOS, creating a symlink to the script in /usr/local/bin is done with the following command:
 
 ```bash
-ln -s /path/to/script /usr/local/bin/mkbo
+ln -s /path/to/script /usr/local/bin/addbook
 ```
-
-Note that 'mkbo' is my name for the script, which stands for 'make an entry for the bobmonsour.com site'. I will likely make one, calling it 'mkbu' for making an entry for the [11ty Bundle site](https://11tybundle.dev).
-
-The example front matter resulting from creating a file named a-test-post.md is shown below. Note that it does not include several optional items that can be added when using the script.
 
 Feel free to adapt this for your own purposes.
-
-```yaml
-  ---
-  title: A test post
-  description: This is a test post being created as an example of using this tool.
-  date: 2025-02-07
-  tags: [
-    "blogging",
-    "personal"
-  ]
-  image:
-    source: a-test-post.jpg
-    alt: A blog post being displayed on a laptop
-  ---
-```
