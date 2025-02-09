@@ -1,6 +1,6 @@
 # addbook - add an entry to the books.json file
 
-Similar to the [script that I created](https://github.com/bobmonsour/mkbo) for creating a new post on my personal website, I created this script for creating a new book in the books.json file that drives the [Books page](https://bobmonsour.com/books/) on the site.
+Similar to the [script that I created](https://github.com/bobmonsour/mkbo), called "mkbo", for creating a new post on my personal website, I created this script for creating a new book in the books.json file that drives the [Books page](https://bobmonsour.com/books/) on the site.
 
 Generally, the script prompts for the title of the book, the author, the date that the book was read, and the rating that I gave to the book. It then creates a new entry in the books.json file with the information provided.
 
@@ -8,11 +8,11 @@ However, as I noted in my presentation to the Eleventy Meetup, there are some id
 
 The script also does some validation. For example it checks to ensure that the ISBN is a 13-digit number and it validates the date format.
 
-And like the mkbo script, it asks if I want to accept the entry or edit it. And I choose to edit it, it pre-fills the entry with the information that I previously entered.
+And like the "mkbo" script, it asks if I want to accept the entry or edit it. And I choose to edit it, it pre-fills the entry with the information that I previously entered.
 
 I've also set up the script to, upon execution, ask if I want it to operate on a books.json file in the local directory (for testing) or in the very specific directory where my "real" books.json file is located.
 
-And, just as I created a symlink to the script for the "kbo" script, I've set it up so that I can run it from any directory. For example, the directory /usr/bin/local is in my path, so I create a symlink to the script in that directory.
+And, just as I created a symlink to the script for the "mkbo" script, I've set it up so that I can run it from any directory. For example, the directory /usr/bin/local is in my path, so I create a symlink to the script in that directory.
 
 On macOS, creating a symlink to the script in /usr/local/bin is done with the following command:
 
